@@ -1,0 +1,27 @@
+{
+  "name": "twizar",
+  "version": "1.0.0",
+  "description": "twizardiamonds server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.17.1",
+    "cors": "^2.8.3",
+    "express": "^4.15.2",
+    "jsonwebtoken": "^7.4.0",
+    "lodash": "^4.17.4",
+    "mongoose": "^4.9.7",
+    "morgan": "^1.8.1",
+    "passport": "^0.3.2",
+    "passport-facebook": "^2.1.1",
+    "passport-google-oauth": "^1.0.0",
+    "passport-jwt": "^2.2.1",    
+    "validator": "^7.0.0",
+    "winston": "^2.3.1"
+  }
+}
