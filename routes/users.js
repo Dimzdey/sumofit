@@ -198,7 +198,29 @@ router.get('/edit/:id', passport.authenticate('jwt', {session: false}), (req, re
   });
 });
 
-
+router.put('/setcoach/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+  let idUserToCoach = req.params.id;
+  let id = req.user._id;
+  User.findOne({'_id' : id}, (err, superuser) => {
+    if (err) throw err;
+    if (!superuser) {
+      res.status(404).json({ success : false, message : 'No such user'});
+    } else {
+      if (superuser.role === 'admin') {
+        User.findOneAndUpdate({_id : idUserToCoach}, {$set:{role:'coach'}}, (err, user) => {
+          if (err) throw err;
+          if (!user) {
+            res.status(404).json({ success : false, message : 'No user with such ID'});
+          } else {
+            res.status(200).json({ success : true, message : 'You have set a new coach!'});
+          }
+        });
+      } else {
+        res.status(409).json({ success : false, message : 'Permission denied'});
+      }
+    }
+  });
+});
 
 
 module.exports = router;
