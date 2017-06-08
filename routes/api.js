@@ -34,7 +34,7 @@ router.post('/ad', passport.authenticate('jwt', {session: false}), (req, res) =>
 router.get('/ad', passport.authenticate('jwt', {session: false}), (req, res) => {
   Ad.find({})
     .select(['price_per_one', 'price_per_month', 'details', 'location', '_creator'])
-    .populate('_creator', 'username')
+    .populate('_creator', 'local.username')
     .then(ads => {
       if (ads.length === 0) {
         res.status(400).json({success: false, message: 'Database is empty :('});

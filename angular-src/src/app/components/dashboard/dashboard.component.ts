@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
   ad: [Object];
-
+  error: any;
   constructor(
     private authService: AuthService,
     private apiService: ApiService,
@@ -22,7 +22,8 @@ export class DashboardComponent implements OnInit {
       this.ad = ads.ads;
     },
     err => {
-      console.log(err);
+      const message = JSON.parse(err._body);
+      this.error = message.message;
       return false;
     });
   }

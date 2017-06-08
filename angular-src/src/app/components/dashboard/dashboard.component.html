@@ -1,2 +1,45 @@
-<h2 class="page-header">Dashboard</h2>
-<p>Welcome to your dashboard</p>
+<h2 class="page-header">Ads</h2>
+<div>
+    <button class="btn btn-success" (click)="showHide = !showHide">Add new</button>
+    <br>
+    <app-newad *ngIf="showHide" ></app-newad>
+    <br>
+    <h1 *ngIf="error">{{error}}</h1>
+    <div *ngIf="ad">
+        <div class="panel panel-default" *ngFor="let item of ad">
+            <div class="panel-body">      
+            <div class="list-group-item">
+                <div class="row">
+                    <h5 class="col-md-2">Creator:</h5>
+                    <h5 class="col-md-10">{{item._creator.local.username}}</h5>
+                </div>                
+            </div>
+            <div class="list-group-item">
+                <div class="row">
+                    <h5 class="col-md-2">Price per one training session</h5>
+                    <h5 class="col-md-10">{{item.price_per_one}}$</h5>
+                </div>                
+            </div>
+            <div class="list-group-item">
+                <div class="row">
+                    <h5 class="col-md-2">Price per month of training sessions</h5>
+                    <h5 class="col-md-10">{{item.price_per_month}}$</h5>
+                </div>                
+            </div>
+            <div class="list-group-item">
+                <div class="row">
+                    <h5 class="col-md-2">About:</h5>
+                    <h5 class="col-md-10">{{item.details}}</h5>
+                </div>                
+            </div>
+            <div class="list-group-item">
+                <div class="row">
+                    <h5 class="col-md-2">Location:</h5>
+                    <h5 class="col-md-10">{{item.location}}</h5>
+                </div>                
+            </div>   
+
+            </div>         
+        </div>
+    </div>
+</div>
