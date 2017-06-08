@@ -12,7 +12,10 @@ import {Router} from '@angular/router';
 export class DashboardComponent implements OnInit {
   ad: [Object];
 
-  constructor(private authService: AuthService, private apiService: ApiService, private router: Router) { }
+  constructor(
+    private authService: AuthService,
+    private apiService: ApiService,
+    private router: Router) { }
 
   ngOnInit() {
     this.apiService.getAds().subscribe(ads => {
