@@ -11,9 +11,9 @@ const {User} = require('../models/User');
 var path = require('path');
 
 router.post('/register', (req, res) => {
-  let body = _.pick(req.body, ['email', 'password', 'firstname', 'lastname']);
+  let body = _.pick(req.body, ['email', 'password', 'username']);
   let newUser = new User({local : body});
-  if (!body.email || !body.password || !body.firstname || !body.lastname ) {
+  if (!body.email || !body.password || !body.username) {
     res.status(400).json({success: false, message: 'Please fill in all fields'});
   } else {
     if (!validator.isEmail(body.email)) {
@@ -50,7 +50,7 @@ router.post('/login', (req, res) => {
         if (err) {return next(err);}
         if (isMatch) {
           const token = jwt.sign(user, config.secret, {expiresIn: 604800});
-          res.header('Authorization', 'JWT ' + token).json({ success: true, message : 'Successfully logged in'});
+          res.json({ success: true, message : 'Successfully logged in', token : 'JWT ' + token});
         } else {
           return res.status(400).json({success: false, message: 'Wrong password'});
         }

@@ -18,7 +18,7 @@ router.post('/ad', passport.authenticate('jwt', {session: false}), (req, res) =>
     price_per_month : body.price_per_month,
     details : body.details,
     location : body.location,
-    _creator:req.user._id
+    _creator: req.user._id
   });
   if (!body.price_per_one || !body.price_per_month || !body.details || !body.location) {
     res.status(400).json({success: false, message: 'Please fill in all fields'});
@@ -29,6 +29,19 @@ router.post('/ad', passport.authenticate('jwt', {session: false}), (req, res) =>
       res.status(400).json({success: false, message: 'Failed to create', error: e.message});
     });
   }
+});
+
+router.get('/ad', passport.authenticate('jwt', {session: false}), (req, res) => {
+  Ad.find({})
+    .select(['price_per_one', 'price_per_month', 'details', 'location', '_creator'])
+    .populate('_creator', 'username')
+    .then(ads => {
+      if (ads.length === 0) {
+        res.status(400).json({success: false, message: 'Database is empty :('});
+      } else {
+        res.status(200).json({success: false, ads : ads });
+      }
+  });
 });
 
 
