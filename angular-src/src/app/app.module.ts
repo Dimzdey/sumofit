@@ -18,6 +18,7 @@ import { ApiService } from './services/api.service';
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { NewadComponent } from './components/newad/newad.component';
+import { TinymceModule } from 'angular2-tinymce';
 
 const appRoutes: Routes =  [
   {path: '', component: HomeComponent},
@@ -43,7 +44,8 @@ const appRoutes: Routes =  [
     FormsModule,
     HttpModule,
     RouterModule.forRoot(appRoutes),
-    FlashMessagesModule
+    FlashMessagesModule,
+    TinymceModule.withConfig({})
   ],
   providers: [ValidateService, AuthService, ApiService, AuthGuard],
   bootstrap: [AppComponent]

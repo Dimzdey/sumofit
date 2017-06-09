@@ -16,20 +16,27 @@
             </div>
             <div class="list-group-item">
                 <div class="row">
-                    <h5 class="col-md-2">Price per one training session</h5>
-                    <h5 class="col-md-10">{{item.price_per_one}}$</h5>
-                </div>                
+                    <div class="col-md-6">
+                        <div class="row">
+                            <h5 class="col-md-6">Price per one training session:</h5>
+                            <h5 class="col-md-6">{{item.price_per_one}}$</h5>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="row">
+                            <h5 class="col-md-6">Price per month of training sessions:</h5>
+                            <h5 class="col-md-6">{{item.price_per_month}}$</h5>                    
+                        </div>        
+                    </div>
+                </div>                                       
             </div>
-            <div class="list-group-item">
-                <div class="row">
-                    <h5 class="col-md-2">Price per month of training sessions</h5>
-                    <h5 class="col-md-10">{{item.price_per_month}}$</h5>
-                </div>                
-            </div>
+           
             <div class="list-group-item">
                 <div class="row">
                     <h5 class="col-md-2">About:</h5>
-                    <h5 class="col-md-10">{{item.details}}</h5>
+                    <!--<h5 >{{}}</h5>-->
+                    <div class="col-md-10" [innerHTML]="item.details"></div>
                 </div>                
             </div>
             <div class="list-group-item">
