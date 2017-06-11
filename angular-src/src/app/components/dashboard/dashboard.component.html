@@ -1,52 +1,25 @@
-<h2 class="page-header">Ads</h2>
+<h2 class="page-header">Coaches</h2>
 <div>
     <button class="btn btn-success" (click)="showHide = !showHide">Add new</button>
     <br>
     <app-newad *ngIf="showHide" ></app-newad>
     <br>
     <h1 *ngIf="error">{{error}}</h1>
-    <div *ngIf="ad">
-        <div class="panel panel-default" *ngFor="let item of ad">
-            <div class="panel-body">      
-            <div class="list-group-item">
-                <div class="row">
-                    <h5 class="col-md-2">Creator:</h5>
-                    <h5 class="col-md-10">{{item._creator.local.username}}</h5>
-                </div>                
-            </div>
-            <div class="list-group-item">
-                <div class="row">
-                    <div class="col-md-6">
-                        <div class="row">
-                            <h5 class="col-md-6">Price per one training session:</h5>
-                            <h5 class="col-md-6">{{item.price_per_one}}$</h5>
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="row">
-                            <h5 class="col-md-6">Price per month of training sessions:</h5>
-                            <h5 class="col-md-6">{{item.price_per_month}}$</h5>                    
-                        </div>        
-                    </div>
-                </div>                                       
-            </div>
-           
-            <div class="list-group-item">
-                <div class="row">
-                    <h5 class="col-md-2">About:</h5>
-                    <!--<h5 >{{}}</h5>-->
-                    <div class="col-md-10" [innerHTML]="item.details"></div>
-                </div>                
-            </div>
-            <div class="list-group-item">
-                <div class="row">
-                    <h5 class="col-md-2">Location:</h5>
-                    <h5 class="col-md-10">{{item.location}}</h5>
-                </div>                
-            </div>   
-
-            </div>         
-        </div>
-    </div>
 </div>
+
+<div *ngIf="ad">
+    <figure *ngFor="let item of ad" class="snip1336 hover">
+    <figcaption>       
+        <h2>{{item._creator.local.username}}
+            <span>Personal Coach</span>
+        </h2>
+        <div class="col-md-10" [innerHTML]="item.details"></div>        
+        <a class="info">Per One: {{item.price_per_one}}$</a>
+        <a class="info">Per Month: {{item.price_per_month}}$</a>
+        <div class="button-container text-center">
+            <button class="btn-class"><span>Send Message </span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+        </div>
+    </figcaption>
+    </figure>   
+</div>
+
