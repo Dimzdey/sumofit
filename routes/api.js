@@ -4,7 +4,6 @@ const passport = require('passport');
 const _ = require('lodash');
 const validator = require('validator');
 
-// const PythonShell = require('python-shell');
 const {ObjectID} = require('mongodb');
 
 const config = require('../config/db');
@@ -33,8 +32,9 @@ router.post('/ad', passport.authenticate('jwt', {session: false}), (req, res) =>
 
 router.get('/ad', passport.authenticate('jwt', {session: false}), (req, res) => {
   Ad.find({})
-    .select(['price_per_one', 'price_per_month', 'details', 'location', '_creator'])
-    .populate('_creator', 'local.username')
+    .select(['price_per_one', 'price_per_month', 'details', 'location', '_creator', 'submit_date'])
+    .populate('_creator', ['local.username', 'online'])
+    .sort('-submit_date')
     .then(ads => {
       if (ads.length === 0) {
         res.status(400).json({success: false, message: 'Database is empty :('});

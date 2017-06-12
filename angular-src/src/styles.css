@@ -8,8 +8,12 @@
 .flash-message {
     z-index: 10000;
     position: fixed;
-    width: 80%;
+    width: 15em;
+    left: 10px;
     margin: 0 auto;
+    text-align: center;
+    transition-timing-function: ease-out;
+    transition-timing-function: cubic-bezier(0, 0, 0.58, 1);
 }
 
 html {
@@ -46,21 +50,21 @@ body {
   left: 0%;
   top: 0%;
   animation: rotate-one 1s linear infinite;
-  border-bottom: 3px solid #000000;
+  border-bottom: 4px solid #ffffff;
 }
 
 .inner.two {
   right: 0%;
   top: 0%;
   animation: rotate-two 1s linear infinite;
-  border-right: 3px solid #000000;
+  border-right: 4px solid #ffffff;
 }
 
 .inner.three {
   right: 0%;
   bottom: 0%;
   animation: rotate-three 1s linear infinite;
-  border-top: 3px solid #000000;
+  border-top: 34x solid #ffffff;
 }
 
 @keyframes rotate-one {

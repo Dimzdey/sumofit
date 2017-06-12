@@ -26,6 +26,11 @@ const UserSchema = mongoose.Schema({
   role: {
     type: String,
     default: 'user'
+  },
+
+  online: {
+    type: Boolean,
+    default: true
   }
 });
 
@@ -45,6 +50,10 @@ UserSchema.statics.comparePassword = function(candidatePassword, hash, callback)
     }
     callback(null, isMatch);
   });
+};
+
+UserSchema.statics.addSocketId = function (data, callback) {
+  User.update({_id: data._id}, data.value ,callback);
 };
 
 UserSchema.pre('save', function(next) {

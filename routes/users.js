@@ -49,10 +49,16 @@ router.post('/login', (req, res) => {
       User.comparePassword(password, user.local.password, (err, isMatch) => {
         if (err) {return next(err);}
         if (isMatch) {
-          const token = jwt.sign(user, config.secret, {expiresIn: 604800});
-          res.json({ success: true, message : 'Successfully logged in', token : 'JWT ' + token});
+          User.findOneAndUpdate({"local.email": email}, { $set: { online: true }}, (err, user) => {
+            if (err) {
+              return res.status(500).json({success: false, message: 'Server error'});
+            } else {
+              const token = jwt.sign(user, config.secret, {expiresIn: 604800});
+              res.json({ success: true, message : 'Successfully logged in', token : 'JWT ' + token});
+            }
+          });
         } else {
-          return res.status(400).json({success: false, message: 'Wrong password'});
+          res.status(400).json({success: false, message: 'Wrong password'});
         }
       });
     }
@@ -67,6 +73,15 @@ router.get('/profile', passport.authenticate('jwt', {session: false}), (req, res
   res.json({success : true, user : user});
 });
 
+router.get('/logout', passport.authenticate('jwt', {session: false}), (req, res) => {
+  User.findOneAndUpdate({_id : req.user._id}, { $set: { online: false }}, (err, user) =>{
+    if (err) {
+      res.status(500).json({success: false, message: 'Server error'});
+    } else {
+      res.status(200).json({success: true, message: 'You are now logged out'});
+    }
+  });
+});
 
 router.get('/auth/facebook', passport.authenticate('facebook', {scope : ['email']}));
 

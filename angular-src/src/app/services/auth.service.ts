@@ -54,6 +54,16 @@ export class AuthService {
   }
 
   logout() {
+    const headers = new Headers();
+    this.loadToken();
+    headers.append('Authorization', this.authToken);
+    headers.append('Content-Type', 'application/json');
+    const ep = this.prepEndpoint('users/logout');
+    return this.http.get(ep, {headers: headers})
+      .map(res => res.json());
+  }
+
+  clearstorage () {
     this.authToken = null;
     this.user = null;
     localStorage.clear();

@@ -72,9 +72,8 @@
   margin: 0 0 5px;
   font-weight: 300;
 }
-.snip1336 h2 span {
+.snip1336 .row span {
   display: block;
-  font-size: 0.5em;
   color: orangered;
 }
 .snip1336 p {
@@ -85,7 +84,7 @@
 }
 
 
-.btn-class {
+button.btn-class {
  width: 100%;
  display: inline-block;
  border: none;
@@ -99,9 +98,17 @@
  padding: 10px 40px;
  background-color: #303030;
 }
-.btn-class:hover, .btn-class:active {
+button.btn-class:hover, button.btn-class:active {
  border: none;
  color: #FFFFFF;
  background-color: #0796F5;
 }
 
+.status {
+ float: right;
+ color: greenyellow;
+}
+
+.isofline {
+  color: red;
+}

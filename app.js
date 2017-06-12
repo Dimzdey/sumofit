@@ -29,6 +29,7 @@ app.use(require('morgan')('combined', { "stream": logger.stream }));
 //router middleware
 const users = require('./routes/users');
 const api = require('./routes/api');
+const chat = require('./routes/chat');
 
 //bodyparser middleware
 app.use(bodyParser.json());
@@ -49,6 +50,7 @@ require('./config/passport')(passport);
 //routes
 app.use('/users', users);
 app.use('/api', api);
+app.use('/chat', chat);
 
 app.listen(port, ()=>{
   console.log('Server started listen on port: ' + port);

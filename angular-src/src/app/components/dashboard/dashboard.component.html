@@ -10,10 +10,20 @@
 <div *ngIf="ad">
     <figure *ngFor="let item of ad" class="snip1336 hover">
     <figcaption>       
-        <h2>{{item._creator.local.username}}
-            <span>Personal Coach</span>
-        </h2>
-        <div class="col-md-10" [innerHTML]="item.details"></div>        
+        <span class="status" [class.isofline]="!item._creator.online">{{item._creator.online ? 'Online' : 'Ofline'}}</span>
+        <h6>{{item.submit_date | date:'medium'}}</h6>
+        <h2>{{item._creator.local.username}}</h2> 
+        
+        <div class="row"> 
+            <div  class="col-md-1"> Ocupation:</div> 
+            <span class="col-md-11">Personal Coach</span>
+        </div>
+
+        <div class="row">
+            <div class="col-md-1">About: </div>
+            <div class="col-md-11" [innerHTML]="item.details"></div>   
+        </div>
+             
         <a class="info">Per One: {{item.price_per_one}}$</a>
         <a class="info">Per Month: {{item.price_per_month}}$</a>
         <div class="button-container text-center">
