@@ -27,7 +27,11 @@
         <a class="info">Per One: {{item.price_per_one}}$</a>
         <a class="info">Per Month: {{item.price_per_month}}$</a>
         <div class="button-container text-center">
-            <button class="btn-class"><span>Send Message </span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+            <button class="btn-class" (click)="showform = !showform"><span>Send Message </span><span class="glyphicon glyphicon-envelope" aria-hidden="true"></span></button>
+        </div>
+        <div *ngIf="showform">
+            <textarea class="col-md-12 message" rows="1" [(ngModel)]="message"></textarea>
+            <button class="btn btn-success" (click)="sendMessage(item._creator._id)">Send Private message</button>
         </div>
     </figcaption>
     </figure>   

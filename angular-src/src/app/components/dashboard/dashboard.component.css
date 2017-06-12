@@ -112,3 +112,7 @@ button.btn-class:hover, button.btn-class:active {
 .isofline {
   color: red;
 }
+
+.message {
+  color: black;
+}

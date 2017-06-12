@@ -25,6 +25,7 @@
     "angular2-tinymce": "^2.1.2",
     "core-js": "^2.4.1",
     "rxjs": "^5.0.1",
+    "socket-client": "^1.0.0",
     "ts-helpers": "^1.1.1",
     "zone.js": "^0.7.2"
   },

@@ -9,7 +9,7 @@ const io = require('socket.io')(server);
 const {User} = require('../models/User');
 const {Message} = require('../models/Messages');
 
-io.on('connection', passport.authenticate('jwt', {session: false}), function (socket) {
+io.on('connection', function (socket) {
 
   			socket.on('chat-list',(data) => {
   					User.findById(data.userId).then((err, UserInfoResponse)=>{
@@ -70,7 +70,7 @@ io.use(function (socket, next) {
         value: {
             $set: {
                 socketId: userSocketId,
-                online: 'Y'
+                online: true
             }
         }
     };
@@ -81,9 +81,9 @@ io.use(function (socket, next) {
 
 
 
-router.get('/getmessages', passport.authenticate('jwt', {session: false}), (req, res) => {
+router.post('/getmessages', passport.authenticate('jwt', {session: false}), (req, res) => {
     const from = req.user._id;
-    const to = req.query.to;
+    const to = req.body.toUser;
     Message.getMessages(from, to, (err, messages) => {
         if (err) {
             res.status(400).json({success: false, message: 'Server error', error: err});
@@ -91,6 +91,38 @@ router.get('/getmessages', passport.authenticate('jwt', {session: false}), (req,
             res.status(200).json({success: true, messages: messages});
         }
     });
+});
+
+router.get('/getchatlist', passport.authenticate('jwt', {session: false}), (req, res) => {
+    const from = req.user._id;
+    Message.find({from_user : from})
+      .select(['to_user'])
+      .populate('to_user', ['local.username', 'online'])
+      .then((chats) => {
+        res.status(200).json({success: true, users: chats});
+      }).catch((e) => {
+        res.status(400).json({success: false, message: 'Server error', error: err});
+      });
+});
+
+router.post('/sendmessage/:id', passport.authenticate('jwt', {session: false}), (req, res) => {
+    const from = req.user._id;
+    const message = req.body.message;
+    const to = req.params.id;
+    if (!message || !to) {
+      res.status(400).json({success: false, message: 'Please fill in all fields'});
+    } else {
+      let newMessage = new Message({
+        from_user : from,
+        message : message,
+        to_user : to
+      });
+      newMessage.save().then(() => {
+        res.status(200).json({success: true, message: 'You have send a private message'});
+      }).catch((e) => {
+        res.status(400).json({success: false, message: 'Failed to create', error: e.message});
+      });
+    }
 });
 
 module.exports = router;

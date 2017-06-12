@@ -18,6 +18,7 @@ export class NewadComponent implements OnInit {
 
   constructor(
     private authService: AuthService,
+    private router: Router,
     private flashMessage: FlashMessagesService,
     private apiService: ApiService,
   ) { }
@@ -39,6 +40,7 @@ export class NewadComponent implements OnInit {
           cssClass: 'alert-success',
           timeout: 5000});
       }
+      location.reload();
     }, err => {
       const message = JSON.parse(err._body);
       this.flashMessage.show(message.message, {

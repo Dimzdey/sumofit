@@ -11,10 +11,13 @@ import { RegisterComponent } from './components/register/register.component';
 import { HomeComponent } from './components/home/home.component';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { ChatComponent } from './components/chat/chat.component';
 
 import { ValidateService } from './services/validate.service';
 import { AuthService } from './services/auth.service';
 import { ApiService } from './services/api.service';
+import { ChatService } from './services/chat.service';
+
 import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { NewadComponent } from './components/newad/newad.component';
@@ -25,7 +28,8 @@ const appRoutes: Routes =  [
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
-  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]}
+  {path: 'profile', component: ProfileComponent, canActivate: [AuthGuard]},
+  {path: 'chat', component: ChatComponent, canActivate: [AuthGuard]}
 ];
 
 @NgModule({
@@ -37,7 +41,8 @@ const appRoutes: Routes =  [
     HomeComponent,
     DashboardComponent,
     ProfileComponent,
-    NewadComponent
+    NewadComponent,
+    ChatComponent
   ],
   imports: [
     BrowserModule,
@@ -47,7 +52,7 @@ const appRoutes: Routes =  [
     FlashMessagesModule,
     TinymceModule.withConfig({})
   ],
-  providers: [ValidateService, AuthService, ApiService, AuthGuard],
+  providers: [ValidateService, AuthService, ApiService, AuthGuard, ChatService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
