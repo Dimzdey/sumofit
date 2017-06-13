@@ -1,0 +1,8 @@
+<button (click)="AddExercise()">Add exercise</button>
+
+<div *ngFor="let exercise of Exercises">
+  <app-exercisecustomization [data]="exercise"></app-exercisecustomization>
+  {{exercise.second}}
+</div>
+
+<button (click)="CreateWorkout()">Create</button>

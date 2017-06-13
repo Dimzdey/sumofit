@@ -7,11 +7,16 @@ const cors = require('cors');
 const _ = require('lodash');
 const config = require('./config/db');
 const logger = require('./utils/logger');
+const seed = require('./models/seed.js');
+
 
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
 mongoose.connection.on('connected', () => {
   console.log('connected to database: ' + config.database);
+  seed.us();
+  seed.ex();
+  seed.wr();
 });
 
 mongoose.connection.on('error', (err) => {

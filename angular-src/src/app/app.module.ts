@@ -22,9 +22,12 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 import { AuthGuard } from './guards/auth.guard';
 import { NewadComponent } from './components/newad/newad.component';
 import { TinymceModule } from 'angular2-tinymce';
+import { NewworkoutComponent } from './components/newworkout/newworkout.component';
+import { ExercisecustomizationComponent } from './components/exercisecustomization/exercisecustomization.component';
 
 const appRoutes: Routes =  [
   {path: '', component: HomeComponent},
+  {path: 'test', component: NewworkoutComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},
@@ -42,7 +45,9 @@ const appRoutes: Routes =  [
     DashboardComponent,
     ProfileComponent,
     NewadComponent,
-    ChatComponent
+    ChatComponent,
+    NewworkoutComponent,
+    ExercisecustomizationComponent
   ],
   imports: [
     BrowserModule,

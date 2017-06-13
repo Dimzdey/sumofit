@@ -9,6 +9,10 @@ const {ObjectID} = require('mongodb');
 const config = require('../config/db');
 const {User} = require('../models/User');
 const {Ad} = require('../models/Ads');
+const {Exercise} = require('../models/Exercises');
+const {Workout} = require('../models/Workout');
+
+
 
 router.post('/ad', passport.authenticate('jwt', {session: false}), (req, res) => {
   let body = _.pick(req.body, ['price_per_one', 'price_per_month', 'details', 'location']);
@@ -44,5 +48,16 @@ router.get('/ad', passport.authenticate('jwt', {session: false}), (req, res) => 
   });
 });
 
+router.get('/exercises', (req, res) => {
+  Exercise.find({}).then((exerc) => {
+    res.status(200).json({success: false, exercises : exerc });
+  });
+});
+
+router.get('/myworkouts', (req, res) => {
+  Workout.find({}).populate(['_creator', 'exercises._exercise']).then((work) => {
+    res.status(200).json({success: false, exercises : work });
+  });
+});
 
 module.exports = router;

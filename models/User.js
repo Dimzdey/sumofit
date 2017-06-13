@@ -2,25 +2,11 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcryptjs');
 const config = require('../config/db');
 
-const UserSchema = mongoose.Schema({
+const UserSchema = new mongoose.Schema({
   local : {
     email : String,
     password : String,
     username :String
-  },
-
-  facebook : {
-    id: String,
-    token : String,
-    email : String,
-    name : String
-  },
-
-  google : {
-    id: String,
-    token : String,
-    email : String,
-    name : String
   },
 
   role: {
@@ -70,7 +56,6 @@ UserSchema.pre('save', function(next) {
         next();
     }
 });
-
 
 const User = mongoose.model('User', UserSchema);
 module.exports = {User};
