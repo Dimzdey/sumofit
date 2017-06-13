@@ -1,0 +1,45 @@
+* {
+    color: black;
+}
+
+
+.snip {
+  font-family: 'Roboto', Arial, sans-serif;
+  position: relative;
+  float: left;
+  overflow: hidden;
+  margin: 10px 1%;
+  min-width: 230px;
+  width: 100%;
+  color: #ffffff;
+  text-align: left;
+  line-height: 1.4em;
+  background-color: #141414;
+}
+
+.snip p {
+  margin: 0 0 10px;
+  font-size: 0.8em;
+  letter-spacing: 1px;
+  opacity: 0.8;
+}
+
+.page {
+  color: black;
+  width: 760px;
+  /* for now */
+  margin: 0 auto;
+}
+
+.post {
+  background: #eee;
+  border-width: 0.07143em;
+  border-style: solid;
+  padding: 1.57143em;
+  padding-top: 0;
+  padding-bottom: 0;
+  border: 1px solid #ccc;
+  -moz-box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px 0;
+  -webkit-box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px 0;
+  box-shadow: rgba(0, 0, 0, 0.2) 0 0 5px 0;
+}

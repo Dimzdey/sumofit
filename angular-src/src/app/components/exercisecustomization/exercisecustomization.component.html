@@ -1,2 +1,27 @@
-<input type="text" (change)="change()" [(ngModel)]="data.first">
-<input type="number" (change)="change()" [(ngModel)]="data.second">
+<div class="snip">
+   
+
+</div>
+
+<div class="page">
+  <article class="post">
+    <div class="row">
+        <p class="col-md-2">Exercise:</p>
+        <select class="form-group col-md-10" [(ngModel)]="data._exercise">
+            <option *ngFor="let exercise of exercises" [ngValue]="exercise._id">{{exercise.name}}</option>
+        </select>
+    </div>
+
+    <div class="row ">
+        <div class="row col-md-6">
+            <p class="col-md-2">Turns:</p>
+            <input class="form-group col-md-3" type="number" (change)="change()" [(ngModel)]="data.turns">
+        </div>
+        <div class="row col-md-6">
+            <p class="col-md-2">Reiterations:</p>
+            <input class="form-group col-md-3" type="number" (change)="change()" [(ngModel)]="data.reiterations">
+        </div>
+    </div>
+  </article>
+
+</div>

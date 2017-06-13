@@ -49,14 +49,14 @@ const users =
 
 const exercises = [{
   _id : exerciseOneID,
-  name: 1,
-  description: 1,
-  image: 1,
+  name: 'Back',
+  description: 'Stronk',
+  image: 'Test',
 }, {
   _id : exerciseTwoID,
-  name: 2,
-  description: 2,
-  image: 2,
+  name: 'Front',
+  description: 'desc',
+  image: 'image',
 }];
 
 const workouts = {
@@ -86,7 +86,7 @@ module.exports.wr = () => {
 };
 
 module.exports.ex = () => {
-  Exercise.find({}).then(() => {
+  Exercise.remove({}).then(() => {
     var exercise1 = new Exercise(exercises[0]).save();
     var exercise2 = new Exercise(exercises[1]).save();
     return Promise.all([exercise1, exercise2]);
