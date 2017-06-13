@@ -22,31 +22,5 @@ const MessageSchema = new mongoose.Schema({
 });
 
 
-MessageSchema.statics.getMessages = (userId, toUserId, callback) => {
-		const data = {
-	        '$or' : [
-	        	{ '$and': [
-	        			{
-	        				'to_user': userId
-	        			},{
-	        				'from_user': toUserId
-	        			}
-	        		]
-	        	},{
-	        		'$and': [
-	        			{
-	        				'to_user': toUserId
-	        			}, {
-	        				'from_user': userId
-	        			}
-	        		]
-	        	},
-	        ]
-	    };
-
-			Message.find(data, callback);
-
-	}
-
 const Message = mongoose.model('Message', MessageSchema);
 module.exports = {Message};

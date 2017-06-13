@@ -12,7 +12,7 @@ export class SocketService {
 
   constructor() { }
 
-  connectSocket(userId: string) {
+  connectSocket(userId: String) {
     this.socket = io(this.BASE_URL, { query: `userId=${userId}`});
   }
 

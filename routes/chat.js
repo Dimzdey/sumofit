@@ -84,12 +84,28 @@ io.use(function (socket, next) {
 router.post('/getmessages', passport.authenticate('jwt', {session: false}), (req, res) => {
     const from = req.user._id;
     const to = req.body.toUser;
-    Message.getMessages(from, to, (err, messages) => {
-        if (err) {
-            res.status(400).json({success: false, message: 'Server error', error: err});
-        } else {
+    const data = {
+	        '$or' : [
+	        	{ '$and': [
+	        			{
+	        				'to_user': from
+	        			},{
+	        				'from_user': to
+	        			}
+	        		]
+	        	},{
+	        		'$and': [
+	        			{
+	        				'to_user': to
+	        			}, {
+	        				'from_user': from
+	        			}
+	        		]
+	        	},
+	        ]
+	    };
+    Message.find(data).populate(['from_user', 'to_user']).then((messages) => {
             res.status(200).json({success: true, messages: messages});
-        }
     });
 });
 
@@ -99,7 +115,8 @@ router.get('/getchatlist', passport.authenticate('jwt', {session: false}), (req,
       .select(['to_user'])
       .populate('to_user', ['local.username', 'online'])
       .then((chats) => {
-        res.status(200).json({success: true, users: chats});
+        var non_duplidated_data = _.uniqBy(chats, 'to_user');
+        res.status(200).json({success: true, users: non_duplidated_data});
       }).catch((e) => {
         res.status(400).json({success: false, message: 'Server error', error: err});
       });

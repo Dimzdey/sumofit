@@ -27,7 +27,7 @@ export class ChatService {
       this.authService.loadToken();
       headers.append('Authorization', this.authService.authToken);
       headers.append('Content-Type', 'application/json');
-      const ep = this.prepEndpoint('chat/getchatlist');
+      const ep = this.prepEndpoint('chat/getmessages');
       return this.http.post(ep, toUser, {headers: headers})
         .map(res => res.json());
     }
