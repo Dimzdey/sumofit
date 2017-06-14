@@ -30,8 +30,8 @@ const users =
 }, {
     _id: userTwoID,
     local: {
-      email: 'pumba@test.test',
-      password: 'userTwoPassword',
+      email: 'test@test.test',
+      password: 'test',
       username: 'Coach 2'
     },
     online: false
@@ -69,21 +69,8 @@ const workouts = {
   }]
 };
 
-module.exports.us = () => {
-    User.remove({}).then(() => {
-        var userOne = new User(users[0]).save();
-        var userTwo = new User(users[1]).save();
-        var userThree = new User(users[2]).save();
-        return Promise.all([userOne, userTwo, userThree]);
-    });
-};
 
-module.exports.wr = () => {
-  Workout.find({}).then(() => {
-    var workout1 = new Workout(workouts).save();
-    return Promise.all([workout1]);
-  });
-};
+
 
 module.exports.ex = () => {
   Exercise.remove({}).then(() => {

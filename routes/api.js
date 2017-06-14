@@ -27,7 +27,7 @@ router.post('/ad', passport.authenticate('jwt', {session: false}), (req, res) =>
     res.status(400).json({success: false, message: 'Please fill in all fields'});
   } else {
     newAd.save().then(() => {
-      res.status(200).json({success: true, message: 'New ad creaated'});
+      res.status(200).json({success: true, message: 'New ad created'});
     }).catch((e) => {
       res.status(400).json({success: false, message: 'Failed to create', error: e.message});
     });
@@ -54,10 +54,26 @@ router.get('/exercises', (req, res) => {
   });
 });
 
-router.get('/myworkouts', (req, res) => {
-  Workout.find({}).populate(['_creator', 'exercises._exercise']).then((work) => {
+router.get('/myworkouts', passport.authenticate('jwt', {session: false}), (req, res) => {
+  let creator = req.user._id;
+  Workout.find({_creator : creator}).populate(['exercises._exercise']).then((work) => {
     res.status(200).json({success: false, exercises : work });
   });
 });
+
+router.post('/addworkout', passport.authenticate('jwt', {session: false}), (req, res) => {
+  let creator = req.user._id;
+  let newWorkout = new Workout({
+    _creator: creator,
+    exercises: req.body.exercises,
+  });
+  newWorkout.save().then(() => {
+    res.status(200).json({success: true, message: 'New workout created'});
+  }).catch((e) => {
+    res.status(400).json({success: false, message: 'Failed to create', error: e.message});
+  });
+});
+
+
 
 module.exports = router;

@@ -13,10 +13,8 @@ const seed = require('./models/seed.js');
 mongoose.Promise = global.Promise;
 mongoose.connect(config.database);
 mongoose.connection.on('connected', () => {
-  console.log('connected to database: ' + config.database);
-  seed.us();
+  console.log('connected to database: ' + config.database);  
   seed.ex();
-  seed.wr();
 });
 
 mongoose.connection.on('error', (err) => {
