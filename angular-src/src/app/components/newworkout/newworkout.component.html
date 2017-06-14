@@ -1,8 +1,44 @@
-<button (click)="AddExercise()">Add exercise</button>
+<h2 class="page-header">Workouts</h2>
 
-<div *ngFor="let exercise of Exercises">
-  <app-exercisecustomization [data]="exercise"></app-exercisecustomization>
-  {{exercise.second}}
+<button class="btn btn-success" (click)="showHide = !showHide">Add new Workout</button>
+<div *ngIf="showHide">
+  <button class="btn btn-success" (click)="AddExercise()">+</button>
+  <div style="text-align:center">
+    <p>Name</p>
+    <input [(ngModel)]="name" class="form-group" name="name">
+  </div>
+  
+  <div *ngFor="let exercise of Exercises">
+    <app-exercisecustomization [data]="exercise"></app-exercisecustomization>
+    <button class="btn btn-danger" style="float: left; margin: -69px 10px -1px 1003px;" (click)="removeExercise(exercise)">Remove</button>
+  </div>
+
+  <button class="btn btn-info" (click)="CreateWorkout()">Create</button>
+  <hr>
 </div>
 
-<button (click)="CreateWorkout()">Create</button>
+<figure class="snip1336 hover" *ngFor="let workout of workouts">
+  
+  <figcaption >
+    <div style="text-align: center;">
+       <h2 style="color: orangered;">{{workout.name}}</h2>
+    </div>
+   
+    <div *ngFor="let exercise of workout.exercises">
+      
+      <div class="row ">
+        <div class="col-md-10 col-sm-10 col-lg-10">
+          <h3>{{exercise._exercise.name}}</h3>
+          <div class="row">
+            <img class="col-md-4" src="{{exercise._exercise.image}}">
+            <p class="col-md-8">{{exercise._exercise.description}} </p>
+          </div>          
+          <a class="info">Turns: {{exercise.turns}}</a>
+          <a class="info">Reiterations: {{exercise.reiterations}}</a>
+        </div>
+      </div>
+      <hr>
+    </div>    
+  </figcaption>
+  
+</figure>

@@ -54,10 +54,16 @@ router.get('/exercises', (req, res) => {
   });
 });
 
+router.get('/exercises/:id', (req, res) => {
+  Exercise.findById(req.params.id).then((exerc) => {
+    res.status(200).json({success: false, exercise : exerc });
+  });
+});
+
 router.get('/myworkouts', passport.authenticate('jwt', {session: false}), (req, res) => {
   let creator = req.user._id;
-  Workout.find({_creator : creator}).populate(['exercises._exercise']).then((work) => {
-    res.status(200).json({success: false, exercises : work });
+  Workout.find({_creator : creator}).populate('exercises._exercise').then((work) => {
+    res.status(200).json({success: false, workouts : work });
   });
 });
 
@@ -66,6 +72,7 @@ router.post('/addworkout', passport.authenticate('jwt', {session: false}), (req,
   let newWorkout = new Workout({
     _creator: creator,
     exercises: req.body.exercises,
+    name: req.body.name
   });
   newWorkout.save().then(() => {
     res.status(200).json({success: true, message: 'New workout created'});

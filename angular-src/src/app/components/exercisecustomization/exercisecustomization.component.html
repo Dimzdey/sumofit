@@ -4,11 +4,11 @@
 </div>
 
 <div class="page">
-  <article class="post">
+  <article class="post" style="margin: 15px;">
     <div class="row">
         <p class="col-md-2">Exercise:</p>
         <select class="form-group col-md-10" [(ngModel)]="data._exercise">
-            <option *ngFor="let exercise of exercises" [ngValue]="exercise._id">{{exercise.name}}</option>
+            <option *ngFor="let exercise of exercises" [ngValue]="exercise._id" >{{exercise.name}}</option>
         </select>
     </div>
 
@@ -18,8 +18,10 @@
             <input class="form-group col-md-3" type="number" (change)="change()" [(ngModel)]="data.turns">
         </div>
         <div class="row col-md-6">
-            <p class="col-md-2">Reiterations:</p>
-            <input class="form-group col-md-3" type="number" (change)="change()" [(ngModel)]="data.reiterations">
+            <div class="row">
+                <p class="col-md-2">Reiterations:</p>
+                <input style="margin :-3px 0px 2px 54px;" class="form-group col-md-3" type="number" (change)="change()" [(ngModel)]="data.reiterations">
+            </div>            
         </div>
     </div>
   </article>

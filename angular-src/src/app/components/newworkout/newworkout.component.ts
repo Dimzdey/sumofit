@@ -9,21 +9,33 @@ import { ApiService } from '../../services/api.service';
 
 export class NewworkoutComponent implements OnInit {
   private Exercises = [];
-
-  constructor(private apiService:ApiService) { }
+  private workouts = [];
+  private name: String = '';
+  constructor(private apiService: ApiService) { }
 
   ngOnInit() {
+    this.apiService.getWorkouts().subscribe(data => {
+      this.workouts = data.workouts;
+    }, err => {
+
+    });
   }
 
   AddExercise() {
     this.Exercises.push({});
   }
 
+  removeExercise(exercise) {
+    const ind = this.Exercises.indexOf(exercise);
+    this.Exercises.splice(ind, 1);
+  }
+
   CreateWorkout() {
-    this.apiService.postWorkout(this.Exercises).subscribe(data => {
-      console.log(data);
+    const exercises = this.Exercises;
+    const name = this.name;
+    this.apiService.postWorkout({exercises, name}).subscribe(data => {
     });
-    console.log(this.Exercises);
+    location.reload();
   }
 
 }

@@ -31,7 +31,6 @@ export class ExercisecustomizationComponent implements OnInit {
   }
 
   change() {
-    console.log(this.data);
     this.dataChange.emit(this.data);
   }
 

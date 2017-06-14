@@ -27,7 +27,7 @@ import { ExercisecustomizationComponent } from './components/exercisecustomizati
 
 const appRoutes: Routes =  [
   {path: '', component: HomeComponent},
-  {path: 'test', component: NewworkoutComponent},
+  {path: 'workouts', component: NewworkoutComponent, canActivate: [AuthGuard]},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
   {path: 'dashboard', component: DashboardComponent, canActivate: [AuthGuard]},

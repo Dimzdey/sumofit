@@ -41,6 +41,15 @@ export class ApiService {
         .map(res => res.json());
     }
 
+    geOneExercise(Id) {
+      const headers = new Headers();
+      this.authService.loadToken();
+      headers.append('Authorization', this.authService.authToken);
+      headers.append('Content-Type', 'application/json');
+      const ep = this.prepEndpoint(`api/exercises/${Id}`);
+      return this.http.get(ep, {headers: headers})
+        .map(res => res.json());
+    }
     postWorkout(Data) {
       const headers = new Headers();
       this.authService.loadToken();
