@@ -20,6 +20,8 @@ export class ChatComponent implements OnInit {
 
     selfClass = true;
     otherClass = false;
+
+    message: String;
   constructor(
     private authService: AuthService,
     private apiService: ApiService,
@@ -50,6 +52,17 @@ export class ChatComponent implements OnInit {
       return false;
     }
     return this.selectedUserId === userId ? true : false;
+  }
+
+  sendMessage() {
+    const message = {message : this.message};
+    this.chatservice.sendPrivateMessage(this.selectedUserId, message).subscribe(data => {
+      this.message = '';
+      const body = {toUser : this.selectedUserId};
+      this.chatservice.getMessages(body).subscribe(mess => {
+        this.messages = mess.messages;
+      });
+    });
   }
 
   alignMessage(userId) {

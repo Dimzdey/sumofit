@@ -2,7 +2,7 @@
   <div class="col-md-2 menu"> 
     <h4>Users</h4> 
     <ul class="list-group" *ngFor="let chat of chats"> 
-      <li (click)="selectChat(chat.to_user._id)" [class.selected-user]="isUserSelected(chat.to_user._id)" class="list-group-item">{{chat.to_user.local.username}}</li> 
+      <li (click)="selectChat(chat._id)" [class.selected-user]="isUserSelected(chat._id)" class="list-group-item">{{chat.local.username}}</li> 
     </ul>       
   </div> 
 
@@ -25,4 +25,5 @@
 </div> 
  
      
-<input  class="textarea" type="text" placeholder="Type here!"/> 
+<input [(ngModel)]="message" class="textarea" type="text" placeholder="Type here!"/> 
+<button  class="textarea" (click)="sendMessage()">Send</button>

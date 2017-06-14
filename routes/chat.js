@@ -111,11 +111,50 @@ router.post('/getmessages', passport.authenticate('jwt', {session: false}), (req
 
 router.get('/getchatlist', passport.authenticate('jwt', {session: false}), (req, res) => {
     const from = req.user._id;
-    Message.find({from_user : from})
-      .select(['to_user'])
-      .populate('to_user', ['local.username', 'online'])
+    const data = [
+    {
+        $match: {
+            '$or' : [
+                {
+                    'to_user': from
+                },
+                {
+                    'from_user': from
+                }
+            ]
+        }
+    },
+    {
+        $project: {
+            _id: 0,
+            'interlocator': {
+                $cond: {
+                    if: {
+                        $eq: ['$to_user', from]
+                    },
+                    then: '$from_user',
+                    else: '$to_user'
+                }
+            }
+        }
+    },
+    {
+        $group: {
+            _id: {interlocator: '$interlocator'}
+        }
+    },
+    {
+        $lookup: {
+            from: 'users',
+            localField: "_id.interlocator",
+            foreignField: '_id',
+            as: 'interlocator'
+        }
+    }
+];
+    Message.aggregate(data)
       .then((chats) => {
-        var non_duplidated_data = _.uniqBy(chats, 'to_user');
+        var non_duplidated_data = chats.map(chat => chat.interlocator[0]);
         res.status(200).json({success: true, users: non_duplidated_data});
       }).catch((e) => {
         res.status(400).json({success: false, message: 'Server error', error: err});
